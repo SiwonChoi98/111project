@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
     public int curHealth; //체력
     public int damage; //공격력
-
+    //데미지 텍스트
+    [SerializeField] private GameObject dmgText;
+    private string _dmgTextFolderName = "DamageText/dmgText";
     private void Start()
     {
+        dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
     }
+    //초기화
     private void Initialized()
     {
         damage = 1;
@@ -18,13 +22,15 @@ public class Monster : MonoBehaviour
     public virtual void Hit(int damage)
     {
         curHealth -= damage;
+        DamageText(damage, this.gameObject);
         if (curHealth <= 0)
         {
             //GetComponent<Collider2D>().enabled = false;
-            //SoundManager.instance.PlaySound(1, "CookieBreak1Sound");
             Destroy(gameObject);
             Debug.Log("몬스터 사망");
+            SoundManager.instance.SfxPlaySound(0);
             GameManager.instance.score += 100;
+            EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -35,10 +41,14 @@ public class Monster : MonoBehaviour
         {
             player.Hit(damage);
         }
-        //if (player.isShieldState)
-        //{
-        //    player.isShield = false;
-        //    //this.gameObject.GetComponent
-        //}
+    }
+
+    public void DamageText(int damage, GameObject pos)
+    {
+        GameObject dmgtext1 = Instantiate(dmgText);
+        dmgtext1.transform.position = pos.transform.position;
+        dmgtext1.GetComponentInChildren<Text>().text = damage.ToString();//자식텍스트로 들어가서 //dmg는 int니까 string형태로 바꿔주기
+        //dmgtext1.transform.parent 
+        Destroy(dmgtext1, 0.7f);
     }
 }

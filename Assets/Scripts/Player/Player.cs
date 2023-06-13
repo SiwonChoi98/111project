@@ -29,12 +29,15 @@ public class Player : MonoBehaviour
     {
         Initialized();
     }
+    //초기화
     public void Initialized()
     {
         isShield = true; //첫 시작 시 쉴드가 가능한 상태로 시작
         curHealth = 3;
         weapon.damage = 1;
     }
+
+    //점프버튼
     public void Jump()
     {
         if (!isJump) //점프 가능한 상태일 때 점프 기능
@@ -44,7 +47,8 @@ public class Player : MonoBehaviour
             isJump = true;
         }
     }
-    public void Attack()
+    //공격버튼
+    public void Attack() 
     {
         int ran = Random.Range(0,3);
         switch (ran)
@@ -62,8 +66,10 @@ public class Player : MonoBehaviour
                 return;
         }
         StartCoroutine(weapon.AttackAreaOnOff());
+        SoundManager.instance.SfxPlaySound(1);
     }
     
+    //쉴드버튼
     public void Shield()
     {
         if (isShield) //쉴드가 가능한 상태일때 
