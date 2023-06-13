@@ -31,9 +31,14 @@ public class Monster : MonoBehaviour
     {
         Player player = collision.gameObject.GetComponent<Player>();
 
-        if (collision.gameObject.CompareTag("Player") && !player.isJump) //플레이어가 바닥에 있을 때 닿으면 체력 깎이고 제거
+        if (collision.gameObject.CompareTag("Player") && !player.isJump) //플레이어가 바닥에 있을 때 닿으면 데미지
         {
             player.Hit(damage);
         }
+        //if (player.isShieldState)
+        //{
+        //    player.isShield = false;
+        //    //this.gameObject.GetComponent
+        //}
     }
 }

@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("점수")]
     public int score; //점수
     [SerializeField] private Text scoreTxt;
+    [Header("체력")]
+    public GameObject[] playerHealth;
     public void StopGame()
     {
         Time.timeScale = 0;
@@ -39,7 +41,11 @@ public class GameManager : MonoBehaviour
     }
     public void Initialized()
     {
-        score = 0;
+        //점수 초기화
+        score = 0; 
+        //체력 이미지 초기화
+        foreach (GameObject health in playerHealth)
+            health.SetActive(true);
     }
     private void Update()
     {
@@ -57,6 +63,7 @@ public class GameManager : MonoBehaviour
             shieldTimeImage.fillAmount = 0;
 
         scoreTxt.text = score.ToString();
+      
     }
     public void Spawn()
     {
@@ -72,7 +79,6 @@ public class GameManager : MonoBehaviour
             gameObject.transform.parent = monsterSpawnTrans;
            
         }
-        
     }
 
 }

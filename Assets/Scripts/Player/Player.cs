@@ -94,7 +94,8 @@ public class Player : MonoBehaviour
 
     public void Hit(int damage)
     {
-        curHealth -= damage;
+        GameManager.instance.playerHealth[curHealth-1].SetActive(false); //체력이미지 없애기
+        curHealth -= damage; //데미지의 따른 체력 감소
         Debug.Log(curHealth);
         if (curHealth <= 0)
         {

@@ -553,6 +553,10 @@ MonoBehaviour:
   settingPanel: {fileID: 1456890746}
   score: 0
   scoreTxt: {fileID: 1899081364}
+  playerHealth:
+  - {fileID: 567786450}
+  - {fileID: 1310422160}
+  - {fileID: 1743540147}
 --- !u!4 &561477442
 Transform:
   m_ObjectHideFlags: 0
@@ -2311,13 +2315,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a172d815e349f4aac613c9870c459f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 447483322}
   curHealth: 0
   isJump: 0
   maxShieldCoolTime: 3
   curShieldCoolTime: 0
   isShield: 0
   isShieldState: 0
+  weapon: {fileID: 447483322}
 --- !u!50 &1741088025
 Rigidbody2D:
   serializedVersion: 4
