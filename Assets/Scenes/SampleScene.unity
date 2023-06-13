@@ -583,6 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackArea: {fileID: 0}
+  dmgText: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
