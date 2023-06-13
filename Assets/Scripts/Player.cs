@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
     
     private Rigidbody2D rigid; //물리
     private Animator anim; //애니메이션
+    //체력
+    public int curHealth; //현재체력
+
     //점프
     private const float jumpPower = 60; //점프 힘
-    private bool isJump = false; //점프 가능한지 체크
+    public bool isJump = false; //점프 가능한지 체크
     //쉴드
     public float maxShieldCoolTime = 3;
     public float curShieldCoolTime = 0;
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
     public void Initialized()
     {
         isShield = true; //첫 시작 시 쉴드가 가능한 상태로 시작
+        curHealth = 3;
     }
     public void Jump()
     {
