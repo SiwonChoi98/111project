@@ -14,7 +14,16 @@ public class GameManager : MonoBehaviour
     public float maxSpawnTime = 3;
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage;
+    [SerializeField] private GameObject settingPanel;
 
+    public void StopGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void PlayGame()
+    {
+        Time.timeScale = 1;
+    }
     private void Start()
     {
         player.Initialized();
