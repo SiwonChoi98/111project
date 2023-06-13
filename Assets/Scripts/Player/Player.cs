@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     
     private Rigidbody2D rigid; //물리
     private Animator anim; //애니메이션
+    
     //체력
     public int curHealth; //현재체력
-
     //점프
     private const float jumpPower = 60; //점프 힘
     public bool isJump = false; //점프 가능한지 체크
@@ -18,17 +18,22 @@ public class Player : MonoBehaviour
     public float curShieldCoolTime = 0;
     public bool isShield = false; //쉴드 상태로 갈 수 있는지
     public bool isShieldState = false; //현재 쉴드 상태인지
-    
     //공격
+    public Weapon weapon; //공격무기
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
+    private void Start()
+    {
+        Initialized();
+    }
     public void Initialized()
     {
         isShield = true; //첫 시작 시 쉴드가 가능한 상태로 시작
         curHealth = 3;
+        weapon.damage = 1;
     }
     public void Jump()
     {
@@ -41,7 +46,6 @@ public class Player : MonoBehaviour
     }
     public void Attack()
     {
-        Debug.Log("Attack");
         int ran = Random.Range(0,3);
         switch (ran)
         {
@@ -57,7 +61,9 @@ public class Player : MonoBehaviour
             default:
                 return;
         }
+        StartCoroutine(weapon.AttackAreaOnOff());
     }
+    
     public void Shield()
     {
         if (isShield) //쉴드가 가능한 상태일때 
@@ -67,8 +73,6 @@ public class Player : MonoBehaviour
             anim.SetTrigger("DoShield");
             Debug.Log("Shield");
         }
-        
-      
     }
     private void ShieldTimeCheck() //쉴드시간체크
     {
@@ -87,6 +91,17 @@ public class Player : MonoBehaviour
     {
         ShieldTimeCheck();
     }
+
+    public void Hit(int damage)
+    {
+        curHealth -= damage;
+        Debug.Log(curHealth);
+        if (curHealth <= 0)
+        {
+            Debug.Log("캐릭터 사망");
+        }
+    }
+   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //바닥과 닿았는지 체크 후 점프 가능한 상태로 만들어줌
