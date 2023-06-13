@@ -4,21 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
-    public int curHealth; //체력
+    private Rigidbody2D rigid;
+    [SerializeField] protected int curHealth; //체력
     public int damage; //공격력
     //데미지 텍스트
     [SerializeField] private GameObject dmgText;
     private string _dmgTextFolderName = "DamageText/dmgText";
-    private void Start()
+    public virtual void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
+    public virtual void Start()
     {
         dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
     }
     //초기화
-    private void Initialized()
+    public virtual void Initialized() 
     {
-        damage = 1;
+        //기본 1
+        damage = 1; 
+        curHealth = 1; 
     }
+    
     public virtual void Hit(int damage)
     {
         curHealth -= damage;
@@ -33,7 +41,7 @@ public class Monster : MonoBehaviour
             EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
 
@@ -42,7 +50,6 @@ public class Monster : MonoBehaviour
             player.Hit(damage);
         }
     }
-
     public void DamageText(int damage, GameObject pos)
     {
         GameObject dmgtext1 = Instantiate(dmgText);

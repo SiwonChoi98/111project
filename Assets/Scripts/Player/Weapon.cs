@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public IEnumerator AttackAreaOnOff() //공격 on/off
     {
         attackArea.enabled = true;
-        yield return new WaitForSeconds(0.3f); //콜라이더 지속 시간
+        yield return new WaitForSeconds(0.1f); //콜라이더 지속 시간
         attackArea.enabled = false;
     }
     private void OnTriggerEnter2D(Collider2D collider)
