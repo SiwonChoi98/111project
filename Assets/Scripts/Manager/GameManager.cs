@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage; //쉴드 UI 쿨타임 이미지
     [SerializeField] private GameObject settingPanel; //옵션 판넬
+    public GameObject gameOverPanel; //게임오버 판넬
     [Header("점수")]
     public int score; //점수
     [SerializeField] private Text scoreTxt;
@@ -28,6 +30,15 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        StopGame();
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
     private void Awake()
     {
         if(instance == null)
@@ -38,6 +49,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Initialized();
+        PlayGame();
     }
     public void Initialized()
     {

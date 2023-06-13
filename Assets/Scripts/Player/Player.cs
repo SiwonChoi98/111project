@@ -99,6 +99,9 @@ public class Player : MonoBehaviour
         Debug.Log(curHealth);
         if (curHealth <= 0)
         {
+            GetComponent<Collider2D>().enabled = false;
+            rigid.constraints = RigidbodyConstraints2D.FreezePositionY;
+            GameManager.instance.GameOver();
             Debug.Log("Ä³¸¯ÅÍ »ç¸Á");
         }
     }
