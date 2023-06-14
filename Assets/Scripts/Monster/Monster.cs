@@ -27,7 +27,7 @@ public class Monster : MonoBehaviour
         curHealth = 1; 
     }
     
-    public virtual void Hit(int damage)
+    public virtual void Hit(int damage, int index)
     {
         curHealth -= damage;
         DamageText(damage, this.gameObject);
@@ -38,7 +38,11 @@ public class Monster : MonoBehaviour
             Debug.Log("∏ÛΩ∫≈Õ ªÁ∏¡");
             SoundManager.instance.SfxPlaySound(0);
             GameManager.instance.score += 100;
-            EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
+            
+            if (index == 0) //∞≠»≠¿Ã∆Â∆Æ
+                EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
+            else
+                EffectManager.instance.PlayEffect(1, gameObject, 0.7f);
         }
     }
     public virtual void OnCollisionEnter2D(Collision2D collision)

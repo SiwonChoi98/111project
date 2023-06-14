@@ -62,32 +62,34 @@ public class Player : MonoBehaviour
     //공격버튼
     public void Attack() 
     {
-        int ran = Random.Range(0,3);
-        switch (ran)
-        {
-            case 0:
-                anim.SetTrigger("DoAttack1");
-                break;
-            case 1:
-                anim.SetTrigger("DoAttack2");
-                break;
-            case 2:
-                anim.SetTrigger("DoAttack3");
-                break;
-            default:
-                return;
-        }
-        StartCoroutine(weapon.AttackAreaOnOff());
         SoundManager.instance.SfxPlaySound(1);
-        if (isUpAttack) //강화공격이 되는 상태에서 버튼 클릭 시 강화공격 상태로 진입
+        if (!isUpAttack) //강화 공격 상태가 아닐때
+        {
+            int ran = Random.Range(0,2);
+            switch (ran)
+            {
+                case 0:
+                    anim.SetTrigger("DoAttack1");
+                    break;
+                case 1:
+                    anim.SetTrigger("DoAttack2");
+                    break;
+                default:
+                    return;
+            }
+            StartCoroutine(weapon.AttackAreaOnOff(1));
+        }
+        else //강화 공격 상태 일때
         {
             isUpAttackState = true;
             GameManager.instance.attackUpGaugePs.Stop();
 
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.up * (jumpPower*2), ForceMode2D.Impulse);
             anim.SetTrigger("DoJump");
             anim.SetBool("IsAttackUp", true);
             isJump = true;
+            StartCoroutine(weapon.AttackAreaOnOff(30));
+            isUpAttack = false; //강화 상태 해제
         }
     }
     
@@ -153,8 +155,10 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor"))
         {
             anim.SetTrigger("DoFall");
-            anim.SetBool("IsAttackUp", false);
             isJump = false;
+
+            anim.SetBool("IsAttackUp", false);
+            isUpAttackState = false; //강화 상태 해제
         }
     }
 }

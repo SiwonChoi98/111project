@@ -15,11 +15,14 @@ public class Weapon : MonoBehaviour
         player = GetComponentInParent<Player>();
     }
     //공격 on/off
-    public IEnumerator AttackAreaOnOff() 
+    public IEnumerator AttackAreaOnOff(int count) 
     {
-        attackArea.enabled = true;
-        yield return new WaitForSeconds(0.1f); //콜라이더 지속 시간
-        attackArea.enabled = false;
+        for(int i=0; i<count; i++)
+        {
+            attackArea.enabled = true;
+            yield return new WaitForSeconds(0.08f); //콜라이더 지속 시간
+            attackArea.enabled = false;
+        }
     }
 
    
@@ -28,15 +31,14 @@ public class Weapon : MonoBehaviour
     {
         if (collider.CompareTag("Monster"))
         {
-            player.AttackUpGauge(); //강화 게이지 증가
-
-            if (!player.isUpAttackState) //강화공격 상태가 아닐 때
-                collider.GetComponent<Monster>().Hit(damage);
+            if (!player.isUpAttackState)  //강화공격 상태가 아닐 때
+            { 
+                collider.GetComponent<Monster>().Hit(damage, 0);
+                player.AttackUpGauge(); //강화 게이지 증가
+            }
             else
             {
-                collider.GetComponent<Monster>().Hit(damage * 5);
-                player.isUpAttackState = false; //강화 상태 해제
-                player.isUpAttack = false; //강화 상태 해제
+                collider.GetComponent<Monster>().Hit(damage * 5, 1);
             }
         }
     }
