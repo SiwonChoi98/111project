@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     public float maxSpawnTime = 3; //몬스터 생성 초기화 시간
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage; //쉴드 UI 쿨타임 이미지
+    [SerializeField] private Image attackUpGaugeImage; //강화 공격 이미지
+    public ParticleSystem attackUpGaugePs; //강화 공격 파티클
     [SerializeField] private GameObject settingPanel; //옵션 판넬
     public GameObject gameOverPanel; //게임오버 판넬
+   
     [Header("점수")]
     public int score; //점수
     [SerializeField] private Text scoreTxt;
@@ -69,13 +72,17 @@ public class GameManager : MonoBehaviour
     }
     private void GUI()
     {
-        if (!player.isShield)
+        //점수 
+        scoreTxt.text = score.ToString();
+        
+        //쉴드게이지
+        if (!player.isShield) 
             shieldTimeImage.fillAmount = player.curShieldCoolTime / player.maxShieldCoolTime;
         else
-            shieldTimeImage.fillAmount = 0;
-
-        scoreTxt.text = score.ToString();
-      
+            shieldTimeImage.fillAmount = 0; 
+        
+        //강화 공격 게이지
+        attackUpGaugeImage.fillAmount = player.curAttackUpGauge / player.maxAttackUpGauge;
     }
     public void Spawn()
     {
