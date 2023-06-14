@@ -161,6 +161,7 @@ public class Player : MonoBehaviour
             anim.SetBool("IsAttackUp", false);
             isUpAttackState = false; //강화 상태 해제
             GameManager.instance.attackUpPs.Stop();
+            GameManager.instance.floorPs.Play();
         }
     }
 }

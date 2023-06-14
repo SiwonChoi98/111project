@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image attackUpGaugeImage; //강화 공격 이미지
     public ParticleSystem attackUpGaugePs; //(버튼)강화 공격 파티클
     public ParticleSystem attackUpPs; //(캐릭터)강화 파티클
+    public ParticleSystem floorPs; //(캐릭터)착지 파티클
     [SerializeField] private GameObject settingPanel; //옵션 판넬
     public GameObject gameOverPanel; //게임오버 판넬
    
