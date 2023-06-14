@@ -17,15 +17,16 @@ public class Monster : MonoBehaviour
     }
     public void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform.position;
+        target = GameObject.FindGameObjectWithTag("Floor").transform.position;
         dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
     }
+    
     private void Move()
     {
         rigid.velocity = new Vector3(0,target.y,0);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }

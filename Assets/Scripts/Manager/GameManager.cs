@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
             monsters[i] = Instantiate(monsters[i]);
             monsters[i].gameObject.SetActive(false);
             monsters[i].transform.parent = monsterSpawnTrans;
-           
         }
         currentMonsterCount = StageManager.instance.stageAssets[stage - 1].monsterCount;
         spawnCount = StageManager.instance.stageAssets[stage-1].monsterCount;
