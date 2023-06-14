@@ -33,15 +33,16 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(this);
     }
 
+    //배경음악
     public void BgmPlaySound(int index)
     {
         bgmAudioSource.clip = bgmSoundList[index].clip;
         bgmAudioSource.Play();
 
     }
+    //효과음
     public void SfxPlaySound(int index, float volume = 1f)
     {
         sfxAudioSource.clip = sfxSoundList[index].clip;

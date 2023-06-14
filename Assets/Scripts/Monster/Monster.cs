@@ -10,11 +10,11 @@ public class Monster : MonoBehaviour
     //데미지 텍스트
     [SerializeField] private GameObject dmgText;
     private string _dmgTextFolderName = "DamageText/dmgText";
-    public virtual void Awake()
+    public void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
     }
-    public virtual void Start()
+    public void Start()
     {
         dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
@@ -22,30 +22,11 @@ public class Monster : MonoBehaviour
     //초기화
     public virtual void Initialized() 
     {
-        //기본 1
-        damage = 1; 
-        curHealth = 1; 
     }
-    
     public virtual void Hit(int damage, int index)
     {
-        curHealth -= damage;
-        DamageText(damage, this.gameObject);
-        if (curHealth <= 0)
-        {
-            //GetComponent<Collider2D>().enabled = false;
-            Destroy(gameObject);
-            Debug.Log("몬스터 사망");
-            SoundManager.instance.SfxPlaySound(0);
-            GameManager.instance.score += 100;
-            
-            if (index == 0) //강화이펙트
-                EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
-            else
-                EffectManager.instance.PlayEffect(1, gameObject, 0.7f);
-        }
     }
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
 

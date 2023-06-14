@@ -15,17 +15,15 @@ public class Weapon : MonoBehaviour
         player = GetComponentInParent<Player>();
     }
     //공격 on/off
-    public IEnumerator AttackAreaOnOff(int count) 
+    public IEnumerator AttackAreaOnOff(float time) 
     {
-        for(int i=0; i<count; i++)
-        {
-            attackArea.enabled = true;
-            yield return new WaitForSeconds(0.08f); //콜라이더 지속 시간
-            attackArea.enabled = false;
-        }
+        attackArea.enabled = true;
+        yield return new WaitForSeconds(time); //콜라이더 지속 시간
+        attackArea.enabled = false;
+
     }
 
-   
+
     //데미지 처리
     private void OnTriggerEnter2D(Collider2D collider)
     {

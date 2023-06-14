@@ -594,6 +594,10 @@ MonoBehaviour:
     effect: {fileID: 1487109709486471247, guid: 8817ff3ead8b90145b64f6a2e27a32b6, type: 3}
   - name: UpgradeHit
     effect: {fileID: 7016110218094446513, guid: 0059016599dc7a44c896fbd54512c473, type: 3}
+  - name: Lv2 NotBreakHit
+    effect: {fileID: 3917822298358733449, guid: c51fe419e85974d4997bed70f5dfd069, type: 3}
+  - name: Lv3 NotBreakHit
+    effect: {fileID: 6137694796895950392, guid: 9ccf664196d55444b81e34c1e701605e, type: 3}
 --- !u!4 &373369496
 Transform:
   m_ObjectHideFlags: 0
@@ -675,7 +679,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &429112447
 GameObject:
@@ -1155,10 +1159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1741088024}
-  monsterSpawnTrans: {fileID: 1238700779}
-  testMonster: {fileID: 6786092197409445733, guid: 61cddafd5eb392945ad1fe4e340e6477, type: 3}
-  spawnTime: 0
-  maxSpawnTime: 1
   shieldTimeImage: {fileID: 1708765135}
   attackUpGaugeImage: {fileID: 966735562}
   attackUpGaugePs: {fileID: 258698758}
@@ -1166,12 +1166,21 @@ MonoBehaviour:
   floorPs: {fileID: 607606434}
   settingPanel: {fileID: 1456890746}
   gameOverPanel: {fileID: 41572805}
+  stageImage: {fileID: 1361608653}
+  stageTxt: {fileID: 1910633870}
   score: 0
   scoreTxt: {fileID: 1899081364}
   playerHealth:
   - {fileID: 567786450}
   - {fileID: 1310422160}
   - {fileID: 1743540147}
+  stage: 0
+  monsters: []
+  spawnCount: 0
+  currentMonsterCount: 0
+  monsterSpawnTrans: {fileID: 1238700779}
+  spawnTime: 0
+  maxSpawnTime: 0.2
 --- !u!4 &561477442
 Transform:
   m_ObjectHideFlags: 0
@@ -2294,7 +2303,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.04
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2404,7 +2413,7 @@ RectTransform:
   - {fileID: 1238700779}
   - {fileID: 1752678893}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2511,7 +2520,7 @@ RectTransform:
   - {fileID: 755652205}
   - {fileID: 1626937898}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3782,7 +3791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
+  m_Color: {r: 0.6415094, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3879,8 +3888,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2215}
-  m_SizeDelta: {x: 1080, y: 6000}
+  m_AnchoredPosition: {x: 0, y: 2945}
+  m_SizeDelta: {x: 1080, y: 8000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1781123714
 MonoBehaviour:
@@ -4443,6 +4452,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022626730}
   m_CullTransparentMesh: 1
+--- !u!1 &2085081047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2085081049}
+  - component: {fileID: 2085081048}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2085081048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085081047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5ba32eb631cb54d8dc6098a30d9eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _folderName: Stage
+  stageAssets: []
+  currentStageIndex: 0
+--- !u!4 &2085081049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085081047}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7388769, y: 13.779097, z: -7.771688}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133304804
 GameObject:
   m_ObjectHideFlags: 0

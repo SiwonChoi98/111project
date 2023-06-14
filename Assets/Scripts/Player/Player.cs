@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
                 default:
                     return;
             }
-            StartCoroutine(weapon.AttackAreaOnOff(1));
+            StartCoroutine(weapon.AttackAreaOnOff(0.08f));
         }
         else //강화 공격 상태 일때
         {
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             anim.SetTrigger("DoJump");
             anim.SetBool("IsAttackUp", true);
             isJump = true;
-            StartCoroutine(weapon.AttackAreaOnOff(30));
+            StartCoroutine(weapon.AttackAreaOnOff(3f));
             isUpAttack = false; //강화 상태 해제
         }
     }
@@ -155,11 +155,13 @@ public class Player : MonoBehaviour
         //바닥과 닿았는지 체크 후 점프 가능한 상태로 만들어줌
         if (collision.gameObject.CompareTag("Floor"))
         {
+            //점프 아닌 상태로
             anim.SetTrigger("DoFall");
             isJump = false;
 
+            //강화 상태 해제
             anim.SetBool("IsAttackUp", false);
-            isUpAttackState = false; //강화 상태 해제
+            isUpAttackState = false; 
             GameManager.instance.attackUpPs.Stop();
             GameManager.instance.floorPs.Play();
         }
