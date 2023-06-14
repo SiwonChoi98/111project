@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
-    private Vector3 target;
-    private Rigidbody2D rigid;
+    private Vector3 target; //타겟으로 이동
+    private Rigidbody2D rigid; //물리
     [SerializeField] protected int curHealth; //체력
     public int damage; //공격력
     //데미지 텍스트
     [SerializeField] private GameObject dmgText;
     private string _dmgTextFolderName = "DamageText/dmgText";
+
+    //private bool isMove = true;
     public void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        //isMove = true;
     }
     public void Start()
     {
@@ -22,13 +25,13 @@ public class Monster : MonoBehaviour
         Initialized();
     }
     
-    private void Move()
+    protected void Move()
     {
         rigid.velocity = new Vector3(0,target.y,0);
     }
-    private void FixedUpdate()
-    {
-        Move();
+    protected void FixedUpdate()
+    {   
+         Move();
     }
     //초기화
     public virtual void Initialized() 
@@ -44,6 +47,10 @@ public class Monster : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !player.isJump) //플레이어가 바닥에 있을 때 닿으면 데미지
         {
             player.Hit(damage);
+        }
+        if (collision.gameObject.CompareTag("Player") && player.isShieldState)
+        {
+            player.isShieldState = false;
         }
     }
     public void DamageText(int damage, GameObject pos)
