@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public bool isShieldState = false; //현재 쉴드 상태인지
     //공격
     [Header("공격")]
-    public Weapon weapon; //공격무기
+    [SerializeField] private Weapon weapon; //공격무기
     public float curAttackUpGauge; //현재 강화 공격 게이지
     public float maxAttackUpGauge; //최대 강화 공격 게이지
     //강화 공격 상태
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        weapon = GetComponentInChildren<Weapon>();
     }
     private void Start()
     {
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour
         {
             isUpAttackState = true;
             GameManager.instance.attackUpGaugePs.Stop();
-
+            GameManager.instance.attackUpPs.Play();
             rigid.AddForce(Vector2.up * (jumpPower*2), ForceMode2D.Impulse);
             anim.SetTrigger("DoJump");
             anim.SetBool("IsAttackUp", true);
@@ -159,6 +160,7 @@ public class Player : MonoBehaviour
 
             anim.SetBool("IsAttackUp", false);
             isUpAttackState = false; //강화 상태 해제
+            GameManager.instance.attackUpPs.Stop();
         }
     }
 }

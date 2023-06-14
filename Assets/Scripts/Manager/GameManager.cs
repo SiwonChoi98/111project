@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage; //쉴드 UI 쿨타임 이미지
     [SerializeField] private Image attackUpGaugeImage; //강화 공격 이미지
-    public ParticleSystem attackUpGaugePs; //강화 공격 파티클
+    public ParticleSystem attackUpGaugePs; //(버튼)강화 공격 파티클
+    public ParticleSystem attackUpPs; //(캐릭터)강화 파티클
     [SerializeField] private GameObject settingPanel; //옵션 판넬
     public GameObject gameOverPanel; //게임오버 판넬
    
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
             shieldTimeImage.fillAmount = 0; 
         
         //강화 공격 게이지
-        attackUpGaugeImage.fillAmount = player.curAttackUpGauge / player.maxAttackUpGauge;
+        attackUpGaugeImage.fillAmount = Mathf.Lerp(attackUpGaugeImage.fillAmount, (float)player.curAttackUpGauge / player.maxAttackUpGauge / 1 / 1, Time.deltaTime * 5);
     }
     public void Spawn()
     {
