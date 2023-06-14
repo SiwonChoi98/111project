@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
             isShield = false;
             isShieldState = true;
             anim.SetTrigger("DoShield");
+            GameManager.instance.shieldPs.Play();
             Debug.Log("Shield");
         }
     }
@@ -115,6 +116,7 @@ public class Player : MonoBehaviour
             {
                 isShield = true;
                 isShieldState = false;
+                GameManager.instance.shieldPs.Stop();
                 curShieldCoolTime = 0;
             }
         }
