@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
+    private Vector3 target;
     private Rigidbody2D rigid;
     [SerializeField] protected int curHealth; //체력
     public int damage; //공격력
@@ -16,8 +17,17 @@ public class Monster : MonoBehaviour
     }
     public void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform.position;
         dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
+    }
+    private void Move()
+    {
+        rigid.velocity = new Vector3(0,target.y,0);
+    }
+    private void Update()
+    {
+        Move();
     }
     //초기화
     public virtual void Initialized() 

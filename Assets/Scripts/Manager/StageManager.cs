@@ -8,7 +8,6 @@ public class StageManager : MonoBehaviour
 
     [SerializeField] private string _folderName = "Stage";
     public List<StageAsset> stageAssets;
-    public int currentStageIndex; //현재스테이지
 
     private void Awake()
     {
@@ -20,9 +19,8 @@ public class StageManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    private void Start()
-    {
+
+        //스테이지 정보 저장
         foreach (var stage in Resources.LoadAll(_folderName))
         {
             stageAssets.Add((StageAsset)stage);
