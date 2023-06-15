@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text stageTxt; //스테이지 텍스트
     [SerializeField] private PlayableDirector stageUpTimeLine; //스테이지 증가 타임라인
     [Header("점수")]
+    public int bestScore; //최고점수
+    [SerializeField] private Text bestScoreTxt; //최고점수 텍스트
     public int score; //점수
     [SerializeField] private Text scoreTxt; //점수 텍스트
     [Header("체력")]
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SoundManager.instance.BgmPlaySound(1, 0.5f);
+        StageManager.instance.LastStageUp();
         gameOverPanel.SetActive(true);
         StopGame();
     }
@@ -136,6 +139,7 @@ public class GameManager : MonoBehaviour
     {
         //점수 
         scoreTxt.text = score.ToString();
+        bestScoreTxt.text = bestScore.ToString();
         //스테이지 텍스트
         stageTxt.text = "WAVE " + stage;
         //쉴드게이지
@@ -218,4 +222,7 @@ public class GameManager : MonoBehaviour
         if(comboCount > 1) //콤보가 1보다 높을 때만 
             ComboText(comboCount, pos);
     }
+
+    
+    
 }

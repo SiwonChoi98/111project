@@ -1273,6 +1273,8 @@ MonoBehaviour:
   stageImage: {fileID: 1361608653}
   stageTxt: {fileID: 1910633870}
   stageUpTimeLine: {fileID: 1910633873}
+  bestScore: 0
+  bestScoreTxt: {fileID: 1563370518}
   score: 0
   scoreTxt: {fileID: 1899081364}
   playerHealth:
