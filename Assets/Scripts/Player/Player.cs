@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
     
@@ -15,6 +14,9 @@ public class Player : MonoBehaviour
     [Header("점프")]
     private const float jumpPower = 60; //점프 힘
     public bool isJump = false; //점프 가능한지 체크
+    private bool isJumpUp = false; //강화 점프 할 수 있는 상태인지
+    public float curJumpUpGauge; //현재 강화 점프 게이지
+    public float maxJumpUpGauge; //최대 강화 점프 게이지
     //쉴드
     [Header("쉴드")]
     public float maxShieldCoolTime = 3; //최대 쉴드 쿨타임
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
     public float curAttackUpGauge; //현재 강화 공격 게이지
     public float maxAttackUpGauge; //최대 강화 공격 게이지
     //강화 공격 상태
-    public bool isUpAttack; //강화 상태로 갈 수 있는지
+    private bool isUpAttack; //강화 상태로 갈 수 있는지
     public bool isUpAttackState; //강화상태인지
 
     private void Awake()
@@ -50,9 +52,11 @@ public class Player : MonoBehaviour
         curHealth = 3;
         weapon.damage = 1;
         curAttackUpGauge = 0f;
-        maxAttackUpGauge = 5f;
+        maxAttackUpGauge = 8f;
         curAttackUpCoolTime = 0f;
         maxAttackUpCoolTime = 2f;
+        curJumpUpGauge = 0;
+        maxJumpUpGauge = 5;
     }
 
     //점프버튼
@@ -60,10 +64,37 @@ public class Player : MonoBehaviour
     {
         if (!isJump) //점프 가능한 상태일 때 점프 기능
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            anim.SetTrigger("DoJump");
-            SoundManager.instance.SfxPlaySound(2, 0.5f); 
-            isJump = true;
+            if (isJumpUp)
+            {
+                GameManager.instance.jumpUpPs.Stop();
+                curJumpUpGauge = 0;
+                rigid.AddForce(Vector2.up * (jumpPower*2), ForceMode2D.Impulse);
+                isJumpUp = false;
+                JumpAnim();
+            }
+            else
+            {
+                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                JumpAnim();
+                curJumpUpGauge++;
+                JumpUpCheck();
+            }
+        }
+    }
+    //점프 관련 함수 재활용
+    private void JumpAnim()
+    {
+        anim.SetTrigger("DoJump");
+        SoundManager.instance.SfxPlaySound(2, 0.5f);
+        isJump = true;
+    }
+    //강화 점프 조건
+    private void JumpUpCheck()
+    {
+        if(curJumpUpGauge >= maxJumpUpGauge)
+        {
+            isJumpUp = true;
+            GameManager.instance.jumpUpPs.Play();
         }
     }
     //공격버튼
@@ -162,9 +193,11 @@ public class Player : MonoBehaviour
         ShieldTimeCheck();
         AttackUpTimeCheck();
     }
-
+    
     public void Hit(int damage)
     {
+        GameManager.instance.healthUpPs.transform.position = GameManager.instance.playerHealth[curHealth - 1].transform.position;
+        GameManager.instance.healthUpPs.Play();
         GameManager.instance.playerHealth[curHealth-1].SetActive(false); //체력이미지 없애기
         curHealth -= damage; //데미지의 따른 체력 감소
         Debug.Log(curHealth);

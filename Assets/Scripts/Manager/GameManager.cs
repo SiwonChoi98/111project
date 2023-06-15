@@ -13,12 +13,15 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage; //쉴드 UI 쿨타임 이미지
     [SerializeField] private Image attackUpGaugeImage; //강화 공격 이미지
+    [SerializeField] private Image jumpUpGaugeImage; //강화 점프 이미지
     public ParticleSystem attackUpGaugePs; //(버튼)강화 공격 파티클
     public ParticleSystem attackUpPs; //(캐릭터)강화 파티클
+    public ParticleSystem jumpUpPs; //(버튼) 강화 점프 파티클
     public ParticleSystem floorPs; //(캐릭터)착지 파티클
     public ParticleSystem shieldPs; //(캐릭터)쉴드 파티클
+    public ParticleSystem healthUpPs; //(이미지) 체력 회복 시 파티클
     [SerializeField] private GameObject settingPanel; //옵션 판넬
-    public GameObject gameOverPanel; //게임오버 판넬
+    [SerializeField] private GameObject gameOverPanel; //게임오버 판넬
     [SerializeField] private GameObject GameStartPanel; //게임시작 판넬
     [SerializeField] private Image stageImage; //스테이지 이미지
     [SerializeField] Text stageTxt; //스테이지 텍스트
@@ -143,7 +146,8 @@ public class GameManager : MonoBehaviour
         
         //강화 공격 게이지
         attackUpGaugeImage.fillAmount = Mathf.Lerp(attackUpGaugeImage.fillAmount, (float)player.curAttackUpGauge / player.maxAttackUpGauge / 1 / 1, Time.deltaTime * 5);
-
+        //강화 점프 게이지
+        jumpUpGaugeImage.fillAmount = Mathf.Lerp(jumpUpGaugeImage.fillAmount, (float)player.curJumpUpGauge / player.maxJumpUpGauge / 1 / 1, Time.deltaTime * 5);
         //스테이지 이미지
         stageImage.fillAmount = Mathf.Lerp(stageImage.fillAmount, (float)stage / 9 / 1 / 1, Time.deltaTime * 5);
     }
@@ -188,6 +192,7 @@ public class GameManager : MonoBehaviour
         stageUpTimeLine.Play();
         stage++;
         spawnIndex = 0;
+        player.isJump = false;
         MonsterSpawnDataSave(); //스테이지 다시 세팅
     }
     //데미지 텍스트

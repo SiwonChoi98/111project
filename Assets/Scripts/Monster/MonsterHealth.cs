@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class MonsterLv3 : Monster
+using DG.Tweening;
+public class MonsterHealth : Monster
 {
     public override void Initialized()
     {
-        damage = 2;
-        curHealth = 3;
+        damage = 0;
+        curHealth = 1;
     }
+
     public override void Hit(int damage, int index)
     {
         curHealth -= damage;
@@ -18,10 +19,17 @@ public class MonsterLv3 : Monster
         if (curHealth <= 0)
         {
             gameObject.SetActive(false);
-            SoundManager.instance.SfxPlaySound(0, 0.7f);
+            SoundManager.instance.SfxPlaySound(7, 0.7f);
             manager.comboCount++;
             manager.score += 1 + manager.comboCount;
             manager.currentMonsterCount--;
+            if(manager.player.curHealth < 3)
+            {
+                manager.player.curHealth++;
+                manager.playerHealth[manager.player.curHealth- 1].SetActive(true);
+                manager.playerHealth[manager.player.curHealth - 1].transform.DOShakeScale(0.3f, 3);
+                manager.playerHealth[manager.player.curHealth - 1].transform.DOShakePosition(0.3f, 3);
+            }
             if (index == 0) //°­È­ÀÌÆåÆ®
                 EffectManager.instance.PlayEffect(0, gameObject, 0.7f);
             else
@@ -31,7 +39,7 @@ public class MonsterLv3 : Monster
         }
         else
         {
-            EffectManager.instance.PlayEffect(3, gameObject, 0.7f);
+            EffectManager.instance.PlayEffect(2, gameObject, 0.7f);
         }
     }
 }
