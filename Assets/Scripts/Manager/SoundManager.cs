@@ -36,9 +36,10 @@ public class SoundManager : MonoBehaviour
     }
 
     //πË∞Ê¿Ωæ«
-    public void BgmPlaySound(int index)
+    public void BgmPlaySound(int index, float volume = 1f)
     {
         bgmAudioSource.clip = bgmSoundList[index].clip;
+        bgmAudioSource.volume = volume;
         bgmAudioSource.Play();
 
     }

@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
             anim.SetTrigger("DoFall");
             isJump = false;
             GameManager.instance.floorPs.Play(); //ÂøÁö ÀÌÆåÆ®
-            
+            SoundManager.instance.SfxPlaySound(2); //ÂøÁö ¼Ò¸®
         }
     }
 }

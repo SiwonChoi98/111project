@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     private string _comboTextFolderName = "ComboText/comboText";
     public void StopGame()
     {
+        UIClickSound();
         Time.timeScale = 0;
     }
     public void PlayGame()
@@ -60,11 +61,17 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        UIClickSound();
         isPlay = true;
     }
     public void ResetGame()
     {
+        UIClickSound();
         SceneManager.LoadScene("SampleScene");
+    }
+    public void UIClickSound()
+    {
+        SoundManager.instance.SfxPlaySound(3);
     }
     private void Awake()
     {
@@ -77,10 +84,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        SoundManager.instance.BgmPlaySound(0, 0.3f);
         Initialized();
         PlayGame();
         MonsterSpawnDataSave();
-
     }
 
     //몬스터 풀 저장
