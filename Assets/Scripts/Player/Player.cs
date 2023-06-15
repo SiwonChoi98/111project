@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     //공격
     [Header("공격")]
     [SerializeField] private Weapon weapon; //공격무기
+    private float curAttackUpCoolTime; //현재 강화상태 쿨타임
+    private float maxAttackUpCoolTime; //최대 강화상태 쿨타임
     public float curAttackUpGauge; //현재 강화 공격 게이지
     public float maxAttackUpGauge; //최대 강화 공격 게이지
     //강화 공격 상태
@@ -47,8 +49,10 @@ public class Player : MonoBehaviour
         isShield = true;
         curHealth = 3;
         weapon.damage = 1;
-        curAttackUpGauge = 0;
-        maxAttackUpGauge = 5;
+        curAttackUpGauge = 0f;
+        maxAttackUpGauge = 5f;
+        curAttackUpCoolTime = 0f;
+        maxAttackUpCoolTime = 2f;
     }
 
     //점프버튼
@@ -125,7 +129,22 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    ///강화 상태 시간 체크
+    private void AttackUpTimeCheck()
+    {
+        if (isUpAttackState)
+        {
+            curAttackUpCoolTime += Time.deltaTime;
+            if(curAttackUpCoolTime >= maxAttackUpCoolTime)
+            {
+                //강화 상태 해제
+                anim.SetBool("IsAttackUp", false);
+                isUpAttackState = false;
+                GameManager.instance.attackUpPs.Stop();
+                curAttackUpCoolTime = 0;
+            }
+        }
+    }
     //강화 공격 게이지 증가
     public void AttackUpGauge()
     {
@@ -140,6 +159,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         ShieldTimeCheck();
+        AttackUpTimeCheck();
     }
 
     public void Hit(int damage)
@@ -164,12 +184,8 @@ public class Player : MonoBehaviour
             //점프 아닌 상태로
             anim.SetTrigger("DoFall");
             isJump = false;
-
-            //강화 상태 해제
-            anim.SetBool("IsAttackUp", false);
-            isUpAttackState = false; 
-            GameManager.instance.attackUpPs.Stop();
-            GameManager.instance.floorPs.Play();
+            GameManager.instance.floorPs.Play(); //착지 이펙트
+            
         }
     }
 }
