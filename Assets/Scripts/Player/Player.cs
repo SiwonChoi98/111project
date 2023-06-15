@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetTrigger("DoJump");
+            SoundManager.instance.SfxPlaySound(2, 0.5f); 
             isJump = true;
         }
     }
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour
             isUpAttackState = true;
             GameManager.instance.attackUpGaugePs.Stop();
             GameManager.instance.attackUpPs.Play();
+            SoundManager.instance.SfxPlaySound(5);
             rigid.AddForce(Vector2.up * (jumpPower*2), ForceMode2D.Impulse);
             anim.SetTrigger("DoJump");
             anim.SetBool("IsAttackUp", true);
@@ -109,8 +111,7 @@ public class Player : MonoBehaviour
             shieldCount = 1;
             anim.SetTrigger("DoShield");
             GameManager.instance.shieldPs.Play();
-            Debug.Log("Shield");
-            
+            SoundManager.instance.SfxPlaySound(6);
         }
     }
     //쉴드시간체크
@@ -172,7 +173,6 @@ public class Player : MonoBehaviour
             GetComponent<Collider2D>().enabled = false;
             rigid.constraints = RigidbodyConstraints2D.FreezePositionY;
             GameManager.instance.GameOver();
-            Debug.Log("캐릭터 사망");
         }
     }
    

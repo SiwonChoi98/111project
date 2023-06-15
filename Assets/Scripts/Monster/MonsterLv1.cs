@@ -17,8 +17,7 @@ public class MonsterLv1 : Monster
         if (curHealth <= 0)
         {
             gameObject.SetActive(false);
-            Debug.Log("¸ó½ºÅÍ »ç¸Á");
-            SoundManager.instance.SfxPlaySound(0);
+            SoundManager.instance.SfxPlaySound(0, 0.7f);
             GameManager.instance.comboCount++;
             GameManager.instance.score += 1 + GameManager.instance.comboCount;
             GameManager.instance.currentMonsterCount--;

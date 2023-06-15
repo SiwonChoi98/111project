@@ -39,6 +39,13 @@ public class Monster : MonoBehaviour
     {
         Player player = collision.gameObject.GetComponent<Player>();
 
+        if (collision.gameObject.CompareTag("Player") && player.isShieldState)
+        {
+            rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
+            player.isShieldState = false;
+            SoundManager.instance.SfxPlaySound(4);
+            GameManager.instance.shieldPs.Stop();
+        }
         if (collision.gameObject.CompareTag("Player") && !player.isJump) //플레이어가 바닥에 있을 때 닿으면 데미지
         {
             if(player.shieldCount > 0)
@@ -49,12 +56,7 @@ public class Monster : MonoBehaviour
             player.Hit(damage);
             GameManager.instance.comboCount = 0;
         }
-        if (collision.gameObject.CompareTag("Player") && player.isShieldState)
-        {
-            rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
-            player.isShieldState = false;
-            GameManager.instance.shieldPs.Stop();
-        }
+        
     }
    
 }

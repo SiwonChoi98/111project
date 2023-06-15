@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
     private string _comboTextFolderName = "ComboText/comboText";
     public void StopGame()
     {
-        UIClickSound();
         Time.timeScale = 0;
     }
     public void PlayGame()
@@ -56,6 +55,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        SoundManager.instance.BgmPlaySound(1, 0.5f);
         gameOverPanel.SetActive(true);
         StopGame();
     }
@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    //다음 스테이지 갈때 해야할 것들
     public void NextStage()
     {
         if(currentMonsterCount <= 0)
