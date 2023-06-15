@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                collider.GetComponent<Monster>().Hit(damage * 5, 1);
+                collider.GetComponent<Monster>().Hit(damage * 2, 1);
             }
         }
     }

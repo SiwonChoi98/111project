@@ -12,5 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca8765824fcf5547a4d68f3e2125ae4, type: 3}
   m_Name: Stage6
   m_EditorClassIdentifier: 
-  monsterCount: 0
-  monsters: []
+  monsterCount: 15
+  monsters:
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
+  - {fileID: 8343854969284757073, guid: 64426910c5e579f4ba2ecf41d7ff93dc, type: 3}
