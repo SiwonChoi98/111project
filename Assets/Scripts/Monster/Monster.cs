@@ -12,11 +12,9 @@ public class Monster : MonoBehaviour
     [SerializeField] private GameObject dmgText;
     private string _dmgTextFolderName = "DamageText/dmgText";
 
-    //private bool isMove = true;
     public void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        //isMove = true;
     }
     public void Start()
     {
@@ -24,14 +22,14 @@ public class Monster : MonoBehaviour
         dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
     }
-    
     protected void Move()
     {
         rigid.velocity = new Vector3(0,target.y,0);
     }
     protected void FixedUpdate()
     {   
-         Move();
+        if(!GameManager.instance.player.isShieldState) //isMove && 
+            Move();
     }
     //초기화
     public virtual void Initialized() 
@@ -46,11 +44,18 @@ public class Monster : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && !player.isJump) //플레이어가 바닥에 있을 때 닿으면 데미지
         {
+            if(player.shieldCount > 0)
+            {
+                player.shieldCount = 0;
+                return;
+            }
             player.Hit(damage);
         }
         if (collision.gameObject.CompareTag("Player") && player.isShieldState)
         {
+            rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
             player.isShieldState = false;
+            GameManager.instance.shieldPs.Stop();
         }
     }
     public void DamageText(int damage, GameObject pos)

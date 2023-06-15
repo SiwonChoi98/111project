@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public float curShieldCoolTime = 0; //현재 쉴드 쿨타임
     public bool isShield = false; //쉴드 상태로 갈 수 있는지
     public bool isShieldState = false; //현재 쉴드 상태인지
+    public int shieldCount; //쉴드 갯수
     //공격
     [Header("공격")]
     [SerializeField] private Weapon weapon; //공격무기
@@ -101,9 +102,11 @@ public class Player : MonoBehaviour
         {
             isShield = false;
             isShieldState = true;
+            shieldCount = 1;
             anim.SetTrigger("DoShield");
             GameManager.instance.shieldPs.Play();
             Debug.Log("Shield");
+            
         }
     }
     //쉴드시간체크
@@ -115,9 +118,10 @@ public class Player : MonoBehaviour
             if (curShieldCoolTime >= maxShieldCoolTime)
             {
                 isShield = true;
-                isShieldState = false;
+                isShieldState = false; //시간 지나도 쉴드상태에서 빠져나감
                 GameManager.instance.shieldPs.Stop();
                 curShieldCoolTime = 0;
+                shieldCount = 0;
             }
         }
     }
