@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Player player;
+    private bool isPlay = false;
 
     [Header("UI")]
     [SerializeField] private Image shieldTimeImage; //쉴드 UI 쿨타임 이미지
@@ -17,8 +18,9 @@ public class GameManager : MonoBehaviour
     public ParticleSystem shieldPs; //(캐릭터)쉴드 파티클
     [SerializeField] private GameObject settingPanel; //옵션 판넬
     public GameObject gameOverPanel; //게임오버 판넬
-    [SerializeField] private Image stageImage;
-    [SerializeField] Text stageTxt;
+    [SerializeField] private GameObject GameStartPanel; //게임시작 판넬
+    [SerializeField] private Image stageImage; //스테이지 이미지
+    [SerializeField] Text stageTxt; //스테이지 텍스트
     [Header("점수")]
     public int score; //점수
     [SerializeField] private Text scoreTxt; //점수 텍스트
@@ -33,6 +35,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform monsterSpawnTrans; //몬스터 생성위치
     public float spawnTime = 0; //몬스터 생성시간
     public float maxSpawnTime = 3; //몬스터 생성 초기화 시간
+    
+    [Header("데미지 텍스트")]
+    [SerializeField] private GameObject dmgText;
+    private string _dmgTextFolderName = "DamageText/dmgText";
+    [Header("콤보 텍스트")]
+    public int comboCount; //콤보 횟수
+    [SerializeField] private GameObject comboText;
+    private string _comboTextFolderName = "ComboText/comboText";
     public void StopGame()
     {
         Time.timeScale = 0;
@@ -45,6 +55,10 @@ public class GameManager : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         StopGame();
+    }
+    public void StartGame()
+    {
+        isPlay = true;
     }
     public void ResetGame()
     {
@@ -64,6 +78,7 @@ public class GameManager : MonoBehaviour
         Initialized();
         PlayGame();
         MonsterSpawnDataSave();
+
     }
 
     //몬스터 풀 저장
@@ -81,17 +96,25 @@ public class GameManager : MonoBehaviour
     }
     public void Initialized()
     {
+        GameStartPanel.SetActive(true);
         //점수 초기화
         score = 0;
         //스테이지 초기화
         stage = 1;
+        //콤보 횟수 초기화
+        comboCount = 0;
         //체력 이미지 초기화
         foreach (GameObject health in playerHealth)
-            health.SetActive(true);   
+            health.SetActive(true);
+        //데미지 텍스트 저장
+        dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
+        //콤보 텍스트 저장
+        comboText = (GameObject)Resources.Load(_comboTextFolderName);
     }
     private void Update()
     {
-        MonsterSpwan();
+        if(isPlay)
+            MonsterSpwan();
     }
     private void LateUpdate()
     {
@@ -155,5 +178,28 @@ public class GameManager : MonoBehaviour
         stage++;
         spawnIndex = 0;
         MonsterSpawnDataSave(); //스테이지 다시 세팅
+    }
+    //데미지 텍스트
+    public void DamageText(int damage, GameObject pos)
+    {
+        GameObject dmgtext1 = Instantiate(dmgText);
+        dmgtext1.transform.position = pos.transform.position;
+        dmgtext1.GetComponentInChildren<Text>().text = damage.ToString();//자식텍스트로 들어가서 //dmg는 int니까 string형태로 바꿔주기
+        //dmgtext1.transform.parent 
+        Destroy(dmgtext1, 0.7f);
+    }
+    //콤보 텍스트
+    private void ComboText(int combo, GameObject pos)
+    {
+        GameObject combotext1 = Instantiate(comboText);
+        combotext1.transform.position = pos.transform.position;
+        combotext1.GetComponentInChildren<Text>().text = "+"+combo+" Combo";//자식텍스트로 들어가서 //dmg는 int니까 string형태로 바꿔주기
+        //dmgtext1.transform.parent 
+        Destroy(combotext1, 1f);
+    }
+    public void ComboTextActive(GameObject pos)
+    {
+        if(comboCount > 1) //콤보가 1보다 높을 때만 
+            ComboText(comboCount, pos);
     }
 }

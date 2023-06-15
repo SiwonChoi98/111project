@@ -8,9 +8,7 @@ public class Monster : MonoBehaviour
     private Rigidbody2D rigid; //물리
     [SerializeField] protected int curHealth; //체력
     public int damage; //공격력
-    //데미지 텍스트
-    [SerializeField] private GameObject dmgText;
-    private string _dmgTextFolderName = "DamageText/dmgText";
+    
 
     public void Awake()
     {
@@ -19,7 +17,6 @@ public class Monster : MonoBehaviour
     public void Start()
     {
         target = GameObject.FindGameObjectWithTag("Floor").transform.position;
-        dmgText = (GameObject)Resources.Load(_dmgTextFolderName);
         Initialized();
     }
     protected void Move()
@@ -50,6 +47,7 @@ public class Monster : MonoBehaviour
                 return;
             }
             player.Hit(damage);
+            GameManager.instance.comboCount = 0;
         }
         if (collision.gameObject.CompareTag("Player") && player.isShieldState)
         {
@@ -58,12 +56,5 @@ public class Monster : MonoBehaviour
             GameManager.instance.shieldPs.Stop();
         }
     }
-    public void DamageText(int damage, GameObject pos)
-    {
-        GameObject dmgtext1 = Instantiate(dmgText);
-        dmgtext1.transform.position = pos.transform.position;
-        dmgtext1.GetComponentInChildren<Text>().text = damage.ToString();//자식텍스트로 들어가서 //dmg는 int니까 string형태로 바꿔주기
-        //dmgtext1.transform.parent 
-        Destroy(dmgtext1, 0.7f);
-    }
+   
 }
