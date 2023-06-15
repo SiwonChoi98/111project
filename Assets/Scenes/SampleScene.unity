@@ -1212,6 +1212,7 @@ MonoBehaviour:
   GameStartPanel: {fileID: 593402878}
   stageImage: {fileID: 1361608653}
   stageTxt: {fileID: 1910633870}
+  stageUpTimeLine: {fileID: 1910633873}
   score: 0
   scoreTxt: {fileID: 1899081364}
   playerHealth:
@@ -5458,6 +5459,8 @@ GameObject:
   - component: {fileID: 1910633869}
   - component: {fileID: 1910633871}
   - component: {fileID: 1910633870}
+  - component: {fileID: 1910633873}
+  - component: {fileID: 1910633872}
   m_Layer: 5
   m_Name: StageTxt
   m_TagString: Untagged
@@ -5527,6 +5530,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910633868}
   m_CullTransparentMesh: 1
+--- !u!95 &1910633872
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910633868}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!320 &1910633873
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910633868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 7ffff222ec20ea7429c23e3c051d989f, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -7583231337587848573, guid: 7ffff222ec20ea7429c23e3c051d989f, type: 2}
+    value: {fileID: 1910633872}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1924275314
 GameObject:
   m_ObjectHideFlags: 0

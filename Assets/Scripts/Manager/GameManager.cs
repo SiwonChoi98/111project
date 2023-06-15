@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameStartPanel; //게임시작 판넬
     [SerializeField] private Image stageImage; //스테이지 이미지
     [SerializeField] Text stageTxt; //스테이지 텍스트
+    [SerializeField] private PlayableDirector stageUpTimeLine; //스테이지 증가 타임라인
     [Header("점수")]
     public int score; //점수
     [SerializeField] private Text scoreTxt; //점수 텍스트
@@ -175,6 +177,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StageUp()
     {
         yield return new WaitForSeconds(2f);
+        stageUpTimeLine.Play();
         stage++;
         spawnIndex = 0;
         MonsterSpawnDataSave(); //스테이지 다시 세팅
