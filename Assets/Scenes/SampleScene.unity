@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: edd7f51a6022d194f9c1f9d0965e63ef, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -997,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackArea: {fileID: 0}
+  _attackArea: {fileID: 0}
 --- !u!1 &455947959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,25 +1258,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1741088024}
-  shieldTimeImage: {fileID: 1708765135}
-  attackUpGaugeImage: {fileID: 966735562}
-  jumpUpGaugeImage: {fileID: 309632164}
+  _shieldTimeImage: {fileID: 1708765135}
+  _attackUpGaugeImage: {fileID: 966735562}
+  _jumpUpGaugeImage: {fileID: 309632164}
   attackUpGaugePs: {fileID: 1009920022}
   attackUpPs: {fileID: 205277736}
   jumpUpPs: {fileID: 1533970520}
   floorPs: {fileID: 607606434}
   shieldPs: {fileID: 2098494968}
   healthUpPs: {fileID: 1538789439}
-  settingPanel: {fileID: 1456890746}
-  gameOverPanel: {fileID: 41572805}
-  GameStartPanel: {fileID: 593402878}
-  stageImage: {fileID: 1361608653}
-  stageTxt: {fileID: 1910633870}
-  stageUpTimeLine: {fileID: 1910633873}
+  _settingPanel: {fileID: 1456890746}
+  _gameOverPanel: {fileID: 41572805}
+  _gameStartPanel: {fileID: 593402878}
+  _stageImage: {fileID: 1361608653}
+  _stageTxt: {fileID: 1910633870}
+  _stageUpTimeLine: {fileID: 1910633873}
   bestScore: 0
-  bestScoreTxt: {fileID: 1563370518}
+  _bestScoreTxt: {fileID: 1563370518}
   score: 0
-  scoreTxt: {fileID: 1899081364}
+  _scoreTxt: {fileID: 1899081364}
   playerHealth:
   - {fileID: 567786450}
   - {fileID: 1310422160}
@@ -1285,12 +1285,12 @@ MonoBehaviour:
   monsters: []
   spawnCount: 0
   currentMonsterCount: 0
-  monsterSpawnTrans: {fileID: 1238700779}
+  _monsterSpawnTrans: {fileID: 1238700779}
   spawnTime: 0
   maxSpawnTime: 0.2
-  dmgText: {fileID: 0}
+  _dmgText: {fileID: 0}
   comboCount: 0
-  comboText: {fileID: 0}
+  _comboText: {fileID: 0}
 --- !u!4 &561477442
 Transform:
   m_ObjectHideFlags: 0
@@ -1750,7 +1750,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &667952219
 RectTransform:
@@ -1944,7 +1944,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &768217686
 RectTransform:
@@ -2516,7 +2516,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &896964221
 RectTransform:
@@ -3032,7 +3032,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1222790549
 RectTransform:
@@ -4844,7 +4844,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1656207291
 RectTransform:
@@ -5083,7 +5083,7 @@ MonoBehaviour:
   isShield: 0
   isShieldState: 0
   shieldCount: 0
-  weapon: {fileID: 0}
+  _weapon: {fileID: 0}
   curAttackUpGauge: 0
   maxAttackUpGauge: 0
   isUpAttackState: 0
@@ -5509,7 +5509,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1752678893
 RectTransform:
@@ -5552,7 +5552,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1781123713
 RectTransform:

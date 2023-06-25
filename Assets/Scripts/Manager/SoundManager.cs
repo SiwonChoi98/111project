@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
         bgmAudioSource.clip = bgmSoundList[index].clip;
         bgmAudioSource.volume = volume;
         bgmAudioSource.Play();
-
+        
     }
     //È¿°úÀ½
     public void SfxPlaySound(int index, float volume = 1f)

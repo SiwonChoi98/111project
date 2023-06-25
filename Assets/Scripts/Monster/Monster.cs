@@ -4,24 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Monster : MonoBehaviour
 {
-    private Vector3 target; //타겟으로 이동
-    private Rigidbody2D rigid; //물리
+    private Vector3 _target; //타겟으로 이동
+    private Rigidbody2D _rigid; //물리
     [SerializeField] protected int curHealth; //체력
     public int damage; //공격력
     
 
     public void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        _rigid = GetComponent<Rigidbody2D>();
     }
     public void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Floor").transform.position;
+        _target = GameObject.FindGameObjectWithTag("Floor").transform.position;
         Initialized();
     }
     protected void Move()
     {
-        rigid.velocity = new Vector3(0,target.y,0);
+        _rigid.velocity = new Vector3(0,_target.y,0);
     }
     protected void FixedUpdate()
     {   
@@ -41,7 +41,7 @@ public class Monster : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && player.isShieldState)
         {
-            rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
+            _rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
             player.isShieldState = false;
             SoundManager.instance.SfxPlaySound(4);
             GameManager.instance.shieldPs.Stop();

@@ -19,7 +19,7 @@ public class EffectManager : MonoBehaviour
 {
     public static EffectManager instance;
     public List<EffectStruct> effectList = new List<EffectStruct>();
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
